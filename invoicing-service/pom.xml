@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.acme</groupId>
+        <artifactId>platform-bom</artifactId>
+        <version>2026.02.0</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.acme.invoicing</groupId>
+    <artifactId>invoicing-service</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Invoicing Service</name>
+    <description>
+        Invoicing Service - Demonstrates module sharing between services.
+        Reuses inventory-domain-module from order-service via BOM.
+    </description>
+
+    <!-- Monolith Modules -->
+    <modules>
+        <module>domain-modules/invoicing-domain-module</module>
+        <module>application-module</module>
+        <module>infrastructure-module</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Internal service modules -->
+            <dependency>
+                <groupId>org.acme.invoicing</groupId>
+                <artifactId>invoicing-domain-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.invoicing</groupId>
+                <artifactId>application-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <!-- ================================== -->
+            <!-- SHARED MODULE FROM ORDER-SERVICE -->
+            <!-- Managed by Platform BOM -->
+            <!-- ================================== -->
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
