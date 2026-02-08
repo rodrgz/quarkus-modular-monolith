@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.acme.order</groupId>
+        <artifactId>order-service</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>inventory-domain-module</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Inventory Domain Module</name>
+    <description>
+        Pure domain module containing inventory business rules.
+        NO framework dependencies (JAX-RS, JPA, Quarkus).
+    </description>
+
+    <dependencies>
+        <!-- 
+        ⚠️ WARNING: This module MUST NOT have framework dependencies!
+        Allowed dependencies only: domain libraries and pure utilities.
+        -->
+    </dependencies>
+</project>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.acme</groupId>
+    <artifactId>platform-bom</artifactId>
+    <version>2026.02.0</version>
+    <packaging>pom</packaging>
+
+    <name>Platform BOM</name>
+    <description>Bill of Materials for centralized dependency version management</description>
+
+    <properties>
+        <!-- Build Config - Centralizado -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Framework Versions -->
+        <quarkus.version>3.31.2</quarkus.version>
+        
+        <!-- Internal Module Versions -->
+        <architecture-rules.version>1.0.0</architecture-rules.version>
+        <shared-kernel.version>1.0.0</shared-kernel.version>
+        <inventory-domain-module.version>1.0.0-SNAPSHOT</inventory-domain-module.version>
+        
+        <!-- Test Library Versions -->
+        <archunit.version>1.4.1</archunit.version>
+        <mockito.version>5.14.2</mockito.version>
+        <assertj.version>3.26.3</assertj.version>
+        
+        <!-- Plugin Versions -->
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <jandex-maven-plugin.version>3.2.0</jandex-maven-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ==================== -->
+            <!-- 1. Framework BOMs -->
+            <!-- ==================== -->
+            <dependency>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- ==================== -->
+            <!-- 2. OpenTelemetry (Unified Observability) -->
+            <!-- ==================== -->
+            <!-- 
+                Quarkus already includes OpenTelemetry in the BOM.
+                Here we document extensions that SHOULD be used in all services:
+                
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-opentelemetry</artifactId>
+                </dependency>
+            -->
+
+            <!-- ==================== -->
+            <!-- 3. Jakarta EE APIs -->
+            <!-- ==================== -->
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.1.0</version> <!-- Version managed by Quarkus BOM, but defined here if override or provided scope needed -->
+            </dependency>
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+
+            <!-- ==================== -->
+            <!-- 4. Test Libraries -->
+            <!-- ==================== -->
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>5.5.0</version> <!-- Version aligned with Quarkus 3.17 -->
+            </dependency>
+
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit-junit5</artifactId>
+                <version>${archunit.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+            </dependency>
+            
+            <!-- Architecture Rules -->
+            <dependency>
+                <groupId>org.acme</groupId>
+                <artifactId>architecture-rules</artifactId>
+                <version>${architecture-rules.version}</version>
+            </dependency>
+
+            <!-- ==================== -->
+            <!-- 5. Shared Internal Modules -->
+            <!-- ==================== -->
+             <dependency>
+                <groupId>org.acme.order</groupId>
+                <artifactId>inventory-domain-module</artifactId>
+                <version>${inventory-domain-module.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!-- Dynamic ArchUnit Target Package -->
+                        <archunit.target.package>${project.groupId}</archunit.target.package>
+                    </systemPropertyVariables>
+                    <dependenciesToScan>
+                        <dependency>org.acme:architecture-rules</dependency>
+                    </dependenciesToScan>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            <maven.home>${maven.home}</maven.home>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>io.smallrye</groupId>
+                    <artifactId>jandex-maven-plugin</artifactId>
+                    <version>${jandex-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.quarkus.platform</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+
