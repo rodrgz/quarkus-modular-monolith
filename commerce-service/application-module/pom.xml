@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.acme.invoicing</groupId>
-        <artifactId>invoicing-service</artifactId>
+        <groupId>org.acme.commerce</groupId>
+        <artifactId>commerce-service</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -15,13 +15,23 @@
     <packaging>jar</packaging>
 
     <name>Application Module</name>
+    <description>
+        Application layer - Orchestrates use cases.
+        Depends on domain-modules, but NOT on infrastructure frameworks.
+    </description>
 
     <dependencies>
+        <!-- Domain Modules -->
         <dependency>
-            <groupId>org.acme.invoicing</groupId>
-            <artifactId>invoicing-domain-module</artifactId>
+            <groupId>org.acme.commerce</groupId>
+            <artifactId>order-domain-module</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.acme.commerce</groupId>
+            <artifactId>inventory-domain-module</artifactId>
         </dependency>
         
+        <!-- CDI (only for dependency injection) -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -36,6 +46,7 @@
     
     <build>
         <plugins>
+            <!-- Jandex para indexação de beans CDI -->
             <plugin>
                 <groupId>io.smallrye</groupId>
                 <artifactId>jandex-maven-plugin</artifactId>

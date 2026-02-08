@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.acme.invoicing</groupId>
-        <artifactId>invoicing-service</artifactId>
+        <groupId>org.acme.commerce</groupId>
+        <artifactId>commerce-service</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -15,18 +15,23 @@
     <packaging>jar</packaging>
 
     <name>Infrastructure Module</name>
+    <description>
+        Infrastructure layer - REST, persistence, adapters, runtime.
+        This module generates the executable artifact (Quarkus).
+    </description>
 
     <dependencies>
+        <!-- Application Module -->
         <dependency>
-            <groupId>org.acme.invoicing</groupId>
+            <groupId>org.acme.commerce</groupId>
             <artifactId>application-module</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.acme.invoicing</groupId>
-            <artifactId>invoicing-domain-module</artifactId>
-        </dependency>
         
-        <!-- Shared module to produce the bean -->
+        <!-- Domain Modules (for Adapters) -->
+        <dependency>
+            <groupId>org.acme.commerce</groupId>
+            <artifactId>order-domain-module</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.acme.commerce</groupId>
             <artifactId>inventory-domain-module</artifactId>
@@ -48,7 +53,6 @@
             <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         
-        <!-- Persistence -->
         <!-- Persistence (Shared Module) -->
         <dependency>
             <groupId>org.acme.commerce</groupId>
@@ -61,25 +65,24 @@
             <artifactId>quarkus-smallrye-health</artifactId>
         </dependency>
         
-        <!-- REST Client (for remote calls to inventory-microservice) -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-client-jackson</artifactId>
-        </dependency>
-        
-        <!-- Fault Tolerance (retry, timeout, fallback) -->
+        <!-- Resilience (for RemoteAdapter demo) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client</artifactId>
         </dependency>
         
         <!-- ==================== -->
         <!-- OpenTelemetry (Unified Observability) -->
         <!-- ==================== -->
+        <!-- Traces: Distributed context propagation -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-opentelemetry</artifactId>
-        </dependency>
+        </dependency>      
 
         <!-- Tests -->
         <dependency>
@@ -120,6 +123,20 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <maven.home>${maven.home}</maven.home>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

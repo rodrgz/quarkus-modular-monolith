@@ -25,6 +25,7 @@
         <architecture-rules.version>1.0.0</architecture-rules.version>
         <shared-kernel.version>1.0.0</shared-kernel.version>
         <inventory-domain-module.version>1.0.0-SNAPSHOT</inventory-domain-module.version>
+        <inventory-infrastructure-module.version>1.0.0-SNAPSHOT</inventory-infrastructure-module.version>
         
         <!-- Test Library Versions -->
         <archunit.version>1.4.1</archunit.version>
@@ -120,11 +121,16 @@
             <!-- ==================== -->
             <!-- 5. Shared Internal Modules -->
             <!-- ==================== -->
-             <dependency>
-                <groupId>org.acme.order</groupId>
+            <dependency>
+                <groupId>org.acme.commerce</groupId>
                 <artifactId>inventory-domain-module</artifactId>
                 <version>${inventory-domain-module.version}</version>
             </dependency>
+            <dependency>
+                 <groupId>org.acme.commerce</groupId>
+                 <artifactId>inventory-infrastructure-module</artifactId>
+                 <version>${inventory-infrastructure-module.version}</version>
+             </dependency>
         </dependencies>
     </dependencyManagement>
 

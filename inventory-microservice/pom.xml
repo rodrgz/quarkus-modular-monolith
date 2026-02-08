@@ -22,7 +22,7 @@
         ┃  DEMONSTRATION: MODULE EXTRACTION TO MICROSERVICE                 ┃
         ┃                                                                    ┃
         ┃  This microservice exposes inventory-domain-module via REST.      ┃
-        ┃  It is the same module used by order-service and invoicing-service┃
+        ┃  It is the same module used by commerce-service and invoicing-service┃
         ┃                                                                    ┃
         ┃  When scaled independently:                                        ┃
         ┃  - Other services switch LocalAdapter → RemoteAdapter             ┃
@@ -33,7 +33,7 @@
     <dependencies>
         <!-- ⭐ The same module used by other services! -->
         <dependency>
-            <groupId>org.acme.order</groupId>
+            <groupId>org.acme.commerce</groupId>
             <artifactId>inventory-domain-module</artifactId>
         </dependency>
 
@@ -55,12 +55,16 @@
             <artifactId>quarkus-smallrye-health</artifactId>
         </dependency>
         
-        <!-- ==================== -->
-        <!-- OpenTelemetry (Unified Observability) -->
-        <!-- ==================== -->
+        <!-- OpenTelemetry -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-opentelemetry</artifactId>
+        </dependency>
+
+        <!-- Persistence (Shared Module) -->
+        <dependency>
+            <groupId>org.acme.commerce</groupId>
+            <artifactId>inventory-infrastructure-module</artifactId>
         </dependency>
         
         <!-- Tests -->

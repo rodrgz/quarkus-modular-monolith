@@ -8,7 +8,7 @@
         <groupId>org.acme.invoicing</groupId>
         <artifactId>invoicing-service</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>invoicing-domain-module</artifactId>
@@ -25,7 +25,7 @@
         <!-- REUSE OF SHARED MODULE -->
         <!-- ================================== -->
         <dependency>
-            <groupId>org.acme.order</groupId>
+            <groupId>org.acme.commerce</groupId>
             <artifactId>inventory-domain-module</artifactId>
         </dependency>
     </dependencies>

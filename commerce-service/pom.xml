@@ -11,20 +11,22 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.acme.invoicing</groupId>
-    <artifactId>invoicing-service</artifactId>
+    <groupId>org.acme.commerce</groupId>
+    <artifactId>commerce-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Invoicing Service</name>
+    <name>Commerce Service</name>
     <description>
-        Invoicing Service - Demonstrates module sharing between services.
-        Reuses inventory-domain-module from commerce-service via BOM.
+        Commerce Service - Modular Monolith PoC.
+        Contains order and inventory domains with hexagonal architecture.
     </description>
 
     <!-- Monolith Modules -->
     <modules>
-        <module>domain-modules/invoicing-domain-module</module>
+        <module>domain-modules/order-domain-module</module>
+        <module>domain-modules/inventory-domain-module</module>
+        <module>data-shared-modules</module>
         <module>application-module</module>
         <module>infrastructure-module</module>
     </modules>
@@ -33,12 +35,22 @@
         <dependencies>
             <!-- Internal service modules -->
             <dependency>
-                <groupId>org.acme.invoicing</groupId>
-                <artifactId>invoicing-domain-module</artifactId>
+                <groupId>org.acme.commerce</groupId>
+                <artifactId>order-domain-module</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.acme.invoicing</groupId>
+                <groupId>org.acme.commerce</groupId>
+                <artifactId>inventory-domain-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.commerce</groupId>
+                <artifactId>inventory-infrastructure-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.commerce</groupId>
                 <artifactId>application-module</artifactId>
                 <version>${project.version}</version>
             </dependency>

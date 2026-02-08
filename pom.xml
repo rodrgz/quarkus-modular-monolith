@@ -10,12 +10,20 @@
     <packaging>pom</packaging>
 
     <name>Modular Monolith Root</name>
-    <description>Root aggregator for the Modular Monolith PoC</description>
+    <description>
+        Root aggregator for the Modular Monolith PoC.
+        This is ONLY for convenience during local development.
+        In production, each service is an independent project.
+    </description>
 
+    <!-- 
+        AGGREGATOR ONLY - No parent relationship
+        Each service imports platform-bom independently
+    -->
     <modules>
         <module>platform-bom</module>
         <module>architecture-rules</module>
-        <module>order-service</module>
+        <module>commerce-service</module>
         <module>invoicing-service</module>
         <module>inventory-microservice</module>
     </modules>

@@ -29,7 +29,7 @@ graph TD
     User((User))
     
     subgraph "Modular Monolith Cluster"
-        OS[Order Service]
+        CS[Commerce Service]
         IS[Invoicing Service]
     end
     
@@ -37,11 +37,11 @@ graph TD
         IM[Inventory Microservice]
     end
 
-    User -->|Place Order| OS
+    User -->|Place Order| CS
     User -->|Generate Invoice| IS
     User -->|Browse Products| IM
     
-    OS -.->|"Calls (Local/Remote)"| IM
+    CS -.->|"Calls (Local/Remote)"| IM
     IS -.->|"Calls (Local/Remote)"| IM
 ```
 
@@ -90,23 +90,23 @@ Managing dependencies in a distributed modular system can be complex. We solve t
 The `platform-bom` is the single source of truth for all versions. It acts as a "governance center" for the project.
 
 ```xml
-<!-- All projects import the same BOM -->
-<dependency>
+<!-- All services inherit from platform-bom as parent -->
+<parent>
     <groupId>org.acme</groupId>
     <artifactId>platform-bom</artifactId>
     <version>2026.02.0</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+    <relativePath/>
+</parent>
 ```
 
 **What it controls:**
 1.  **Framework versions**: Ensures all services use the exact same Quarkus version (e.g., `3.31.2`).
-2.  **Internal module versions**: Defines the version of shared modules like `inventory-domain-module`. If `order-service` and `invoicing-service` both use `inventory-domain-module`, the BOM guarantees they use the *same* version.
+2.  **Internal module versions**: Defines the version of shared modules like `inventory-domain-module`. If `commerce-service` and `invoicing-service` both use `inventory-domain-module`, the BOM guarantees they use the *same* version.
 3.  **Test libraries**: Unifies versions of JUnit, Mockito, ArchUnit, etc.
+4.  **Plugin Management**: Centralizes Maven plugin versions (compiler, surefire, jandex, quarkus).
 
 **Benefits**:
-*   ✅ **Consistency**: Impossible for `order-service` to use one version of a library and `invoicing-service` to use another.
+*   ✅ **Full inheritance**: Services inherit properties, dependencyManagement, and pluginManagement.
 *   ✅ **Simplified updates**: Upgrade Quarkus or a shared library in one place (`platform-bom`), and all services inherit the upgrade.
 *   ✅ **Conflict resolution**: Eliminates "dependency hell" by acting as the arbiter for transitive dependencies.
 
@@ -127,7 +127,7 @@ graph TD
         API -.-> INT
     end
 
-    OS[order-service] --> API
+    CS[commerce-service] --> API
     IS[invoicing-service] --> API
     IM[inventory-microservice] --> INT
     
@@ -230,8 +230,8 @@ mvn clean install
 ### Run services
 
 ```bash
-# Terminal 1: Order Service (port 8080)
-mvn quarkus:dev -pl order-service/infrastructure-module
+# Terminal 1: Commerce Service (port 8080)
+mvn quarkus:dev -pl commerce-service/infrastructure-module
 
 # Terminal 2: Invoicing Service (port 8081)
 mvn quarkus:dev -pl invoicing-service/infrastructure-module
@@ -266,10 +266,12 @@ quarkus-modular-monolith/
 ├── platform-bom/                       # Bill of Materials (Centralized Versions)
 ├── architecture-rules/                 # ArchUnit rules library
 │
-├── order-service/                      # Modular Monolith 1 (port 8080)
+├── commerce-service/                   # Modular Monolith 1 (port 8080)
 │   ├── domain-modules/
 │   │   ├── order-domain-module/   
-│   │   └── inventory-domain-module/    ◄── SHARED MODULE
+│   │   └── inventory-domain-module/    ◄── SHARED DOMAIN MODULE
+│   ├── data-shared-modules/            ◄── SHARED INFRASTRUCTURE MODULES
+│   │   └── inventory-infrastructure-module/
 │   ├── application-module/         
 │   └── infrastructure-module/      
 │
@@ -288,7 +290,7 @@ quarkus-modular-monolith/
 
 ```bash
 mvn test -Dtest=ArchitectureTest \
-  -pl order-service/infrastructure-module,invoicing-service/infrastructure-module,inventory-microservice
+  -pl commerce-service/infrastructure-module,invoicing-service/infrastructure-module,inventory-microservice
 ```
 
 ---
