@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(mvn compile*)",
+      "Shell(mvn test*)",
+      "Shell(mvn verify*)",
+      "Shell(mvn spotless:check*)",
+      "Shell(mvn quarkus:dev*)",
+      "Shell(find *)",
+      "Shell(grep *)"
+    ],
+    "deny": [
+      "Shell(git push*)",
+      "Shell(gh pr create*)",
+      "Shell(mvn deploy*)",
+      "Shell(rm -rf*)"
+    ]
+  }
+}

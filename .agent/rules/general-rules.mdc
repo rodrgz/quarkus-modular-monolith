@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+---
+
+# Context7 MCP
+
+Always use context7 when I need code generation, setup or configuration steps, or
+library/API documentation. This means you should automatically use the Context7 MCP
+tools to resolve library id and get library docs without me having to explicitly ask.
+
+# Writing implementation plans
+
+Implementation plans should always include build, lint, and tests when necessary.
+To run build add `mvn compile -pl :module-name` and `mvn spotless:check -pl :module-name`
+To run tests add `mvn test -pl :module-name` for unit tests
+To run integration tests add `mvn verify -Pintegration-test -pl :module-name`
+
+# When dealing with database entities and migrations
+
+Never create migrations manually, always use Flyway or Liquibase.
+Migration files should be placed in `src/main/resources/db/migration/`
+Naming convention: `V{version}__{description}.sql` (e.g., `V1__create_users_table.sql`)
+
+# Maven Commands Quick Reference
+
+- **Build**: `mvn compile`
+- **Test**: `mvn test`
+- **Integration Test**: `mvn verify -Pintegration-test`
+- **Package**: `mvn package -DskipTests`
+- **Clean**: `mvn clean`
+- **Format Check**: `mvn spotless:check`
+- **Format Apply**: `mvn spotless:apply`
+- **Quarkus Dev Mode**: `mvn quarkus:dev`
+
+# Quarkus Dev Services
+
+When running in dev/test mode, Quarkus automatically starts containers for:
+- PostgreSQL, MySQL, MongoDB
+- Kafka, RabbitMQ
+- Redis, Elasticsearch
+
+No need to manually configure test databases - Dev Services handles it automatically.

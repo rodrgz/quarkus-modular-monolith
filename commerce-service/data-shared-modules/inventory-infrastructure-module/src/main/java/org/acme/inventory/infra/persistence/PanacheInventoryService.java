@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  * 
  * <h2>Cache Strategy:</h2>
  * <ul>
- *   <li>{@link #findById(String)} - Cached per product ID</li>
- *   <li>{@link #listAvailable()} - Cached as single entry</li>
- *   <li>{@link #reserve(String, int)} - Invalidates product cache</li>
- *   <li>{@link #release(String, int)} - Invalidates product cache</li>
+ * <li>{@link #findById(String)} - Cached per product ID</li>
+ * <li>{@link #listAvailable()} - Cached as single entry</li>
+ * <li>{@link #reserve(String, int)} - Invalidates product cache</li>
+ * <li>{@link #release(String, int)} - Invalidates product cache</li>
  * </ul>
  */
 @ApplicationScoped
@@ -39,12 +39,7 @@ public class PanacheInventoryService implements InventoryService {
     }
 
     @Override
-    @MultiLevelCache(
-        cacheName = CACHE_PRODUCTS,
-        l1TtlSeconds = 30,
-        l1MaxSize = 500,
-        l2TtlSeconds = 300
-    )
+    @MultiLevelCache(cacheName = CACHE_PRODUCTS, l1Ttl = 30, l1MaxSize = 500, l2Ttl = 300)
     public Optional<ProductDTO> findById(String productId) {
         return productRepository.findByIdOptional(productId)
                 .map(this::toDTO);
@@ -58,12 +53,7 @@ public class PanacheInventoryService implements InventoryService {
     }
 
     @Override
-    @MultiLevelCache(
-        cacheName = CACHE_PRODUCTS_LIST,
-        l1TtlSeconds = 60,
-        l1MaxSize = 10,
-        l2TtlSeconds = 600
-    )
+    @MultiLevelCache(cacheName = CACHE_PRODUCTS_LIST, l1Ttl = 60, l1MaxSize = 10, l2Ttl = 600)
     public List<ProductDTO> listAvailable() {
         return productRepository.list("quantityAvailable > 0").stream()
                 .map(this::toDTO)
@@ -81,10 +71,10 @@ public class PanacheInventoryService implements InventoryService {
 
         entity.quantityAvailable -= quantity;
         productRepository.persist(entity);
-        
+
         // Invalidate cache after update
         invalidateProductCache(productId);
-        
+
         return true;
     }
 
@@ -95,12 +85,12 @@ public class PanacheInventoryService implements InventoryService {
         if (entity != null) {
             entity.quantityAvailable += quantity;
             productRepository.persist(entity);
-            
+
             // Invalidate cache after update
             invalidateProductCache(productId);
         }
     }
-    
+
     /**
      * Invalidate all caches related to product data.
      */
@@ -121,4 +111,3 @@ public class PanacheInventoryService implements InventoryService {
                 entity.category);
     }
 }
-

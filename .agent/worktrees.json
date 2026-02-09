@@ -1,0 +1,5 @@
+{
+  "setup-worktree": [
+    "mvn clean install -DskipTests"
+  ]
+}

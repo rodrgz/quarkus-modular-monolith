@@ -1,0 +1,925 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< org.acme.platform:cache-module >-------------------
+[INFO] Building Cache Module 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] The artifact io.quarkus:quarkus-junit5:jar:3.31.2 has been relocated to io.quarkus:quarkus-junit:jar:3.31.2: Update the artifactId in your project build file. Refer to https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.31 for more information.
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ cache-module ---
+[INFO] skip non existing resourceDirectory /home/erik/sources/arquitetura/modular-monolith-poc/platform-modules/cache-module/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ cache-module ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- jandex:3.2.0:jandex (make-index) @ cache-module ---
+[INFO] Saving Jandex index: /home/erik/sources/arquitetura/modular-monolith-poc/platform-modules/cache-module/target/classes/META-INF/jandex.idx
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ cache-module ---
+[INFO] skip non existing resourceDirectory /home/erik/sources/arquitetura/modular-monolith-poc/platform-modules/cache-module/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ cache-module ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ cache-module ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:389)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:306)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:62)
+	at io.quarkus.test.junit.AppMakerHelper.getStartupAction(AppMakerHelper.java:253)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getOrCreateRuntimeClassLoader(FacadeClassLoader.java:599)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getQuarkusClassLoader(FacadeClassLoader.java:496)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.loadClass(FacadeClassLoader.java:378)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:536)
+	at java.base/java.lang.Class.forName(Class.java:515)
+	at org.junit.platform.commons.util.ReflectionUtils.lambda$tryToLoadClass$0(ReflectionUtils.java:771)
+	at org.junit.platform.commons.function.Try.lambda$call$0(Try.java:61)
+	at org.junit.platform.commons.function.Try.of(Try.java:98)
+	at org.junit.platform.commons.function.Try.call(Try.java:61)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:758)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:714)
+	at org.junit.platform.commons.support.ReflectionSupport.tryToLoadClass(ReflectionSupport.java:78)
+	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:97)
+	at org.junit.jupiter.engine.discovery.ClassSelectorResolver.resolve(ClassSelectorResolver.java:86)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.lambda$resolve$0(EngineDiscoveryRequestResolution.java:137)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:191)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:128)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:94)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:85)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver.resolve(EngineDiscoveryRequestResolver.java:150)
+	at org.junit.jupiter.engine.discovery.DiscoverySelectorResolver.resolveSelectors(DiscoverySelectorResolver.java:62)
+	at org.junit.jupiter.engine.JupiterTestEngine.discover(JupiterTestEngine.java:74)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:195)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverSafely(EngineDiscoveryOrchestrator.java:174)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:119)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:84)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:119)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$discover$0(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.discover(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.discover(LazyLauncher.java:50)
+	at org.apache.maven.surefire.junitplatform.TestPlanScannerFilter.accept(TestPlanScannerFilter.java:52)
+	at org.apache.maven.surefire.api.util.DefaultScanResult.applyFilter(DefaultScanResult.java:87)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.scanClasspath(JUnitPlatformProvider.java:142)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.builder.Execution.run(Execution.java:139)
+	at io.quarkus.builder.BuildExecutionBuilder.execute(BuildExecutionBuilder.java:78)
+	at io.quarkus.deployment.QuarkusAugmentor.run(QuarkusAugmentor.java:171)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:385)
+	... 55 more
+Caused by: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:389)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:306)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:62)
+	at io.quarkus.test.junit.AppMakerHelper.getStartupAction(AppMakerHelper.java:253)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getOrCreateRuntimeClassLoader(FacadeClassLoader.java:599)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getQuarkusClassLoader(FacadeClassLoader.java:496)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.loadClass(FacadeClassLoader.java:378)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:536)
+	at java.base/java.lang.Class.forName(Class.java:515)
+	at org.junit.platform.commons.util.ReflectionUtils.lambda$tryToLoadClass$0(ReflectionUtils.java:771)
+	at org.junit.platform.commons.function.Try.lambda$call$0(Try.java:61)
+	at org.junit.platform.commons.function.Try.of(Try.java:98)
+	at org.junit.platform.commons.function.Try.call(Try.java:61)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:758)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:714)
+	at org.junit.platform.commons.support.ReflectionSupport.tryToLoadClass(ReflectionSupport.java:78)
+	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:97)
+	at org.junit.jupiter.engine.discovery.ClassSelectorResolver.resolve(ClassSelectorResolver.java:86)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.lambda$resolve$0(EngineDiscoveryRequestResolution.java:137)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:191)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:128)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:94)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:85)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver.resolve(EngineDiscoveryRequestResolver.java:150)
+	at org.junit.jupiter.engine.discovery.DiscoverySelectorResolver.resolveSelectors(DiscoverySelectorResolver.java:62)
+	at org.junit.jupiter.engine.JupiterTestEngine.discover(JupiterTestEngine.java:74)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:195)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverSafely(EngineDiscoveryOrchestrator.java:174)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:119)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:84)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:119)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$discover$0(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.discover(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.discover(LazyLauncher.java:50)
+	at org.apache.maven.surefire.junitplatform.TestPlanScannerFilter.accept(TestPlanScannerFilter.java:52)
+	at org.apache.maven.surefire.api.util.DefaultScanResult.applyFilter(DefaultScanResult.java:87)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.scanClasspath(JUnitPlatformProvider.java:142)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.builder.Execution.run(Execution.java:139)
+	at io.quarkus.builder.BuildExecutionBuilder.execute(BuildExecutionBuilder.java:78)
+	at io.quarkus.deployment.QuarkusAugmentor.run(QuarkusAugmentor.java:171)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:385)
+	... 55 more
+Caused by: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+[ERROR] TestEngine with ID 'junit-jupiter' encountered a critical issue during test discovery:
+
+(1) [ERROR] ClassSelector [className = 'org.acme.cache.DeepAnalysisTest', classLoader = null] resolution failed
+    Source: ClassSource [className = 'org.acme.cache.DeepAnalysisTest', filePosition = null]
+            at org.acme.cache.DeepAnalysisTest.<no-method>(SourceFile:0)
+    Cause: org.junit.platform.commons.PreconditionViolationException: Could not load class with name: org.acme.cache.DeepAnalysisTest
+	at org.junit.platform.engine.discovery.ClassSelector.lambda$getJavaClass$0(ClassSelector.java:100)
+	at org.junit.platform.commons.function.Try$Failure.getOrThrow(Try.java:379)
+	at org.junit.platform.commons.function.Try.getNonNullOrThrow(Try.java:199)
+	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:99)
+	at org.junit.jupiter.engine.discovery.ClassSelectorResolver.resolve(ClassSelectorResolver.java:86)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.lambda$resolve$0(EngineDiscoveryRequestResolution.java:137)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:191)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:128)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:94)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:85)
+	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver.resolve(EngineDiscoveryRequestResolver.java:150)
+	at org.junit.jupiter.engine.discovery.DiscoverySelectorResolver.resolveSelectors(DiscoverySelectorResolver.java:62)
+	at org.junit.jupiter.engine.JupiterTestEngine.discover(JupiterTestEngine.java:74)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:195)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverSafely(EngineDiscoveryOrchestrator.java:174)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:119)
+	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:84)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:119)
+	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$discover$0(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.discover(InterceptingLauncher.java:35)
+	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.discover(LazyLauncher.java:50)
+	at org.apache.maven.surefire.junitplatform.TestPlanScannerFilter.accept(TestPlanScannerFilter.java:52)
+	at org.apache.maven.surefire.api.util.DefaultScanResult.applyFilter(DefaultScanResult.java:87)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.scanClasspath(JUnitPlatformProvider.java:142)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:389)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:306)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:62)
+	at io.quarkus.test.junit.AppMakerHelper.getStartupAction(AppMakerHelper.java:253)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getOrCreateRuntimeClassLoader(FacadeClassLoader.java:599)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.getQuarkusClassLoader(FacadeClassLoader.java:496)
+	at io.quarkus.test.junit.classloading.FacadeClassLoader.loadClass(FacadeClassLoader.java:378)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:536)
+	at java.base/java.lang.Class.forName(Class.java:515)
+	at org.junit.platform.commons.util.ReflectionUtils.lambda$tryToLoadClass$0(ReflectionUtils.java:771)
+	at org.junit.platform.commons.function.Try.lambda$call$0(Try.java:61)
+	at org.junit.platform.commons.function.Try.of(Try.java:98)
+	at org.junit.platform.commons.function.Try.call(Try.java:61)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:758)
+	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:714)
+	at org.junit.platform.commons.support.ReflectionSupport.tryToLoadClass(ReflectionSupport.java:78)
+	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:97)
+	... 38 more
+Caused by: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+
+	at io.quarkus.builder.Execution.run(Execution.java:139)
+	at io.quarkus.builder.BuildExecutionBuilder.execute(BuildExecutionBuilder.java:78)
+	at io.quarkus.deployment.QuarkusAugmentor.run(QuarkusAugmentor.java:171)
+	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:385)
+	... 55 more
+Caused by: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+	- available beans:
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+	... 12 more
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.341 s
+[INFO] Finished at: 2026-02-10T00:45:09Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project cache-module: 
+[ERROR] 
+[ERROR] See /home/erik/sources/arquitetura/modular-monolith-poc/platform-modules/cache-module/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] There was an error in the forked process
+[ERROR] TestEngine with ID 'junit-jupiter' encountered a critical issue during test discovery:
+[ERROR] 
+[ERROR] (1) [ERROR] ClassSelector [className = 'org.acme.cache.DeepAnalysisTest', classLoader = null] resolution failed
+[ERROR]     Source: ClassSource [className = 'org.acme.cache.DeepAnalysisTest', filePosition = null]
+[ERROR]             at org.acme.cache.DeepAnalysisTest.<no-method>(SourceFile:0)
+[ERROR]     Cause: org.junit.platform.commons.PreconditionViolationException: Could not load class with name: org.acme.cache.DeepAnalysisTest
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.lambda$getJavaClass$0(ClassSelector.java:100)
+[ERROR] 	at org.junit.platform.commons.function.Try$Failure.getOrThrow(Try.java:379)
+[ERROR] 	at org.junit.platform.commons.function.Try.getNonNullOrThrow(Try.java:199)
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:99)
+[ERROR] 	at org.junit.jupiter.engine.discovery.ClassSelectorResolver.resolve(ClassSelectorResolver.java:86)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.lambda$resolve$0(EngineDiscoveryRequestResolution.java:137)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+[ERROR] 	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+[ERROR] 	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:191)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:128)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:94)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:85)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver.resolve(EngineDiscoveryRequestResolver.java:150)
+[ERROR] 	at org.junit.jupiter.engine.discovery.DiscoverySelectorResolver.resolveSelectors(DiscoverySelectorResolver.java:62)
+[ERROR] 	at org.junit.jupiter.engine.JupiterTestEngine.discover(JupiterTestEngine.java:74)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:195)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverSafely(EngineDiscoveryOrchestrator.java:174)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:119)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:84)
+[ERROR] 	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:119)
+[ERROR] 	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:85)
+[ERROR] 	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+[ERROR] 	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$discover$0(InterceptingLauncher.java:35)
+[ERROR] 	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+[ERROR] 	at org.junit.platform.launcher.core.InterceptingLauncher.discover(InterceptingLauncher.java:35)
+[ERROR] 	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.LazyLauncher.discover(LazyLauncher.java:50)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.TestPlanScannerFilter.accept(TestPlanScannerFilter.java:52)
+[ERROR] 	at org.apache.maven.surefire.api.util.DefaultScanResult.applyFilter(DefaultScanResult.java:87)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.scanClasspath(JUnitPlatformProvider.java:142)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[ERROR] Caused by: java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+[ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:389)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:306)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:62)
+[ERROR] 	at io.quarkus.test.junit.AppMakerHelper.getStartupAction(AppMakerHelper.java:253)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.getOrCreateRuntimeClassLoader(FacadeClassLoader.java:599)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.getQuarkusClassLoader(FacadeClassLoader.java:496)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.loadClass(FacadeClassLoader.java:378)
+[ERROR] 	at java.base/java.lang.Class.forName0(Native Method)
+[ERROR] 	at java.base/java.lang.Class.forName(Class.java:536)
+[ERROR] 	at java.base/java.lang.Class.forName(Class.java:515)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.lambda$tryToLoadClass$0(ReflectionUtils.java:771)
+[ERROR] 	at org.junit.platform.commons.function.Try.lambda$call$0(Try.java:61)
+[ERROR] 	at org.junit.platform.commons.function.Try.of(Try.java:98)
+[ERROR] 	at org.junit.platform.commons.function.Try.call(Try.java:61)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:758)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:714)
+[ERROR] 	at org.junit.platform.commons.support.ReflectionSupport.tryToLoadClass(ReflectionSupport.java:78)
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:97)
+[ERROR] 	... 38 more
+[ERROR] Caused by: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+[ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] 	at io.quarkus.builder.Execution.run(Execution.java:139)
+[ERROR] 	at io.quarkus.builder.BuildExecutionBuilder.execute(BuildExecutionBuilder.java:78)
+[ERROR] 	at io.quarkus.deployment.QuarkusAugmentor.run(QuarkusAugmentor.java:171)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:385)
+[ERROR] 	... 55 more
+[ERROR] Caused by: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] org.apache.maven.surefire.booter.SurefireBooterForkException: There was an error in the forked process
+[ERROR] TestEngine with ID 'junit-jupiter' encountered a critical issue during test discovery:
+[ERROR] 
+[ERROR] (1) [ERROR] ClassSelector [className = 'org.acme.cache.DeepAnalysisTest', classLoader = null] resolution failed
+[ERROR]     Source: ClassSource [className = 'org.acme.cache.DeepAnalysisTest', filePosition = null]
+[ERROR]             at org.acme.cache.DeepAnalysisTest.<no-method>(SourceFile:0)
+[ERROR]     Cause: org.junit.platform.commons.PreconditionViolationException: Could not load class with name: org.acme.cache.DeepAnalysisTest
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.lambda$getJavaClass$0(ClassSelector.java:100)
+[ERROR] 	at org.junit.platform.commons.function.Try$Failure.getOrThrow(Try.java:379)
+[ERROR] 	at org.junit.platform.commons.function.Try.getNonNullOrThrow(Try.java:199)
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:99)
+[ERROR] 	at org.junit.jupiter.engine.discovery.ClassSelectorResolver.resolve(ClassSelectorResolver.java:86)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.lambda$resolve$0(EngineDiscoveryRequestResolution.java:137)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+[ERROR] 	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1685)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:129)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:527)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:513)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+[ERROR] 	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+[ERROR] 	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+[ERROR] 	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:647)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:191)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolve(EngineDiscoveryRequestResolution.java:128)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.resolveCompletely(EngineDiscoveryRequestResolution.java:94)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolution.run(EngineDiscoveryRequestResolution.java:85)
+[ERROR] 	at org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver.resolve(EngineDiscoveryRequestResolver.java:150)
+[ERROR] 	at org.junit.jupiter.engine.discovery.DiscoverySelectorResolver.resolveSelectors(DiscoverySelectorResolver.java:62)
+[ERROR] 	at org.junit.jupiter.engine.JupiterTestEngine.discover(JupiterTestEngine.java:74)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:195)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverSafely(EngineDiscoveryOrchestrator.java:174)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:119)
+[ERROR] 	at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:84)
+[ERROR] 	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:119)
+[ERROR] 	at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:85)
+[ERROR] 	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+[ERROR] 	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$discover$0(InterceptingLauncher.java:35)
+[ERROR] 	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+[ERROR] 	at org.junit.platform.launcher.core.InterceptingLauncher.discover(InterceptingLauncher.java:35)
+[ERROR] 	at org.junit.platform.launcher.core.DelegatingLauncher.discover(DelegatingLauncher.java:43)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.LazyLauncher.discover(LazyLauncher.java:50)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.TestPlanScannerFilter.accept(TestPlanScannerFilter.java:52)
+[ERROR] 	at org.apache.maven.surefire.api.util.DefaultScanResult.applyFilter(DefaultScanResult.java:87)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.scanClasspath(JUnitPlatformProvider.java:142)
+[ERROR] 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+[ERROR] 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[ERROR] Caused by: java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+[ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:389)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:306)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.createInitialRuntimeApplication(AugmentActionImpl.java:62)
+[ERROR] 	at io.quarkus.test.junit.AppMakerHelper.getStartupAction(AppMakerHelper.java:253)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.getOrCreateRuntimeClassLoader(FacadeClassLoader.java:599)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.getQuarkusClassLoader(FacadeClassLoader.java:496)
+[ERROR] 	at io.quarkus.test.junit.classloading.FacadeClassLoader.loadClass(FacadeClassLoader.java:378)
+[ERROR] 	at java.base/java.lang.Class.forName0(Native Method)
+[ERROR] 	at java.base/java.lang.Class.forName(Class.java:536)
+[ERROR] 	at java.base/java.lang.Class.forName(Class.java:515)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.lambda$tryToLoadClass$0(ReflectionUtils.java:771)
+[ERROR] 	at org.junit.platform.commons.function.Try.lambda$call$0(Try.java:61)
+[ERROR] 	at org.junit.platform.commons.function.Try.of(Try.java:98)
+[ERROR] 	at org.junit.platform.commons.function.Try.call(Try.java:61)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:758)
+[ERROR] 	at org.junit.platform.commons.util.ReflectionUtils.tryToLoadClass(ReflectionUtils.java:714)
+[ERROR] 	at org.junit.platform.commons.support.ReflectionSupport.tryToLoadClass(ReflectionSupport.java:78)
+[ERROR] 	at org.junit.platform.engine.discovery.ClassSelector.getJavaClass(ClassSelector.java:97)
+[ERROR] 	... 38 more
+[ERROR] Caused by: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+[ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] 	at io.quarkus.builder.Execution.run(Execution.java:139)
+[ERROR] 	at io.quarkus.builder.BuildExecutionBuilder.execute(BuildExecutionBuilder.java:78)
+[ERROR] 	at io.quarkus.deployment.QuarkusAugmentor.run(QuarkusAugmentor.java:171)
+[ERROR] 	at io.quarkus.runner.bootstrap.AugmentActionImpl.runAugment(AugmentActionImpl.java:385)
+[ERROR] 	... 55 more
+[ERROR] Caused by: jakarta.enterprise.inject.spi.DeploymentException: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.processErrors(BeanDeployment.java:1637)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:344)
+[ERROR] 	at io.quarkus.arc.processor.BeanProcessor.initialize(BeanProcessor.java:177)
+[ERROR] 	at io.quarkus.arc.deployment.ArcProcessor.validate(ArcProcessor.java:491)
+[ERROR] 	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+[ERROR] 	at io.quarkus.deployment.ExtensionLoader$3.execute(ExtensionLoader.java:898)
+[ERROR] 	at io.quarkus.builder.BuildContext.run(BuildContext.java:255)
+[ERROR] 	at org.jboss.threads.ContextHandler$1.runWith(ContextHandler.java:18)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2651)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2630)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor.runThreadBody(EnhancedQueueExecutor.java:1622)
+[ERROR] 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1589)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[ERROR] 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
+[ERROR] Caused by: jakarta.enterprise.inject.AmbiguousResolutionException: Ambiguous dependencies for type io.quarkus.redis.datasource.RedisDataSource and qualifiers [@Default]
+[ERROR] 	- injection target: parameter 'redisDataSource' of org.acme.cache.MultiLevelCacheManager constructor
+[ERROR] 	- declared on CLASS bean [types=[java.lang.Object, org.acme.cache.MultiLevelCacheManager], qualifiers=[@Any, @Default], target=org.acme.cache.MultiLevelCacheManager]
+[ERROR] 	- available beans:
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.MultiLevelCacheTest$MockRedisProducer]
+[ERROR] 		- PRODUCER METHOD bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @Default], target=io.quarkus.redis.datasource.RedisDataSource createMockRedis(), declaringBean=org.acme.cache.DeepAnalysisTest$MockRedisProducer]
+[ERROR] 		- SYNTHETIC bean [types=[io.quarkus.redis.datasource.RedisDataSource, java.lang.Object], qualifiers=[@Any, @jakarta.enterprise.inject.Default], target=n/a]
+[ERROR] 	at io.quarkus.arc.processor.Beans.resolveInjectionPoint(Beans.java:556)
+[ERROR] 	at io.quarkus.arc.processor.BeanInfo.init(BeanInfo.java:691)
+[ERROR] 	at io.quarkus.arc.processor.BeanDeployment.init(BeanDeployment.java:329)
+[ERROR] 	... 12 more
+[ERROR] 
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.fork(ForkStarter.java:628)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:285)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:250)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1336)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1134)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:968)
+[ERROR] 	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+[ERROR] 	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+[ERROR] 	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+[ERROR] 	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+[ERROR] 	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+[ERROR] 	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+[ERROR] 	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+[ERROR] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[ERROR] 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:361)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

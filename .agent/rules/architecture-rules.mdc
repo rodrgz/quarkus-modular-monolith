@@ -1,0 +1,81 @@
+---
+description: Core architecture principles for Quarkus modular monolith
+globs: []
+alwaysApply: true
+---
+
+# Quarkus Modular Monolith Architecture Principles
+
+**Structure:**
+
+- Apps = Entry points (bootstrapping only)
+- Modules = Independent, composable business domains
+- Shared = Cross-cutting concerns and utilities
+
+**Module Structure (Pragmatic Pattern):**
+
+Flat Module (3-8 entities):
+- `module/core/` (Services, Business Logic, Exceptions)
+- `module/http/rest/` (JAX-RS Resources, DTOs)
+- `module/http/client/` (MicroProfile REST Clients)
+- `module/persistence/` (Entities, Repositories, Mappers)
+
+Subdomain-Based Module (10+ entities):
+- `module/{subdomain}/core/`, `http/`, `persistence/`
+- `module/shared/` (Shared entities, enums, constants)
+
+**10 Key Principles:**
+
+1. Well-defined boundaries | 2. Composability | 3. Independence | 4. Individual scale | 5. Explicit communication
+6. Replaceability | 7. Deployment independence | 8. State isolation ⚠️ | 9. Observability | 10. Fail independence
+
+---
+
+## 📚 Progressive Documentation Loading
+
+**CRITICAL**: Only load documents relevant to your current task. Do NOT load all documentation at once.
+
+### Decision Tree: What to Read (Priority Order)
+
+**Start here for navigation:**
+
+- **Understanding overall architecture or starting new work** → `docs/ARCHITECTURE-OVERVIEW.md` (navigation hub)
+
+**Database & Entities (CRITICAL - most violated):**
+
+- **Creating/modifying entities, migrations, or Hibernate** → `docs/STATE-ISOLATION.md` ⚠️
+  - Always check for duplicate entity names before creating entities
+  - Required before any database work
+
+**Implementation Patterns:**
+
+- **Creating resources, services, or repositories** → `docs/CODING-PATTERNS.md`
+  - Repository pattern, lean controllers, transaction management
+- **Organizing code within a module** → See `docs/IMPLEMENTATION-CHECKLIST.md` (File Organization section)
+
+**Module Design & Communication:**
+
+- **Creating new modules, boundaries, or inter-module communication** → `docs/MODULAR-PRINCIPLES.md`
+  - Principles 1-7: boundaries, composability, independence, communication
+
+**Resilience & Observability:**
+
+- **Logging, metrics, error handling, circuit breakers** → `docs/RESILIENCE-OBSERVABILITY.md`
+  - Principles 9-10: observability, fail independence
+  - MicroProfile Fault Tolerance patterns
+
+**Verification & Compliance:**
+
+- **Pre-commit checks, architecture verification, detection commands** → `docs/IMPLEMENTATION-CHECKLIST.md`
+  - Detection commands, verification steps, anti-patterns
+
+### Quick Reference by Task Type
+
+| Task Type                 | Primary Doc                                | Secondary Docs              |
+| ------------------------- | ------------------------------------------ | --------------------------- |
+| New entity/migration      | STATE-ISOLATION.md                         | ARCHITECTURE-OVERVIEW.md    |
+| New resource/service      | CODING-PATTERNS.md                         | IMPLEMENTATION-CHECKLIST.md |
+| New module                | MODULAR-PRINCIPLES.md + STATE-ISOLATION.md | ARCHITECTURE-OVERVIEW.md    |
+| External API integration  | CODING-PATTERNS.md (REST Client section)   | RESILIENCE-OBSERVABILITY.md |
+| Error handling/logging    | RESILIENCE-OBSERVABILITY.md                | CODING-PATTERNS.md          |
+| Architecture verification | IMPLEMENTATION-CHECKLIST.md                | (run detection commands)    |
