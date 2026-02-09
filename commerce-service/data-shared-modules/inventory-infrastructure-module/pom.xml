@@ -47,6 +47,12 @@
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- Cache Module for MultiLevelCache -->
+        <dependency>
+            <groupId>org.acme.platform</groupId>
+            <artifactId>cache-module</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

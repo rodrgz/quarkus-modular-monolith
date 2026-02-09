@@ -23,6 +23,7 @@
     <modules>
         <module>platform-bom</module>
         <module>architecture-rules</module>
+        <module>platform-modules</module>
         <module>commerce-service</module>
         <module>invoicing-service</module>
         <module>inventory-microservice</module>

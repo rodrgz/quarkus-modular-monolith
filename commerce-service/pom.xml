@@ -26,6 +26,7 @@
     <modules>
         <module>domain-modules/order-domain-module</module>
         <module>domain-modules/inventory-domain-module</module>
+        <module>domain-modules/events-module</module>
         <module>data-shared-modules</module>
         <module>application-module</module>
         <module>infrastructure-module</module>
@@ -46,6 +47,11 @@
             </dependency>
             <dependency>
                 <groupId>org.acme.commerce</groupId>
+                <artifactId>events-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.commerce</groupId>
                 <artifactId>inventory-infrastructure-module</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -53,6 +59,18 @@
                 <groupId>org.acme.commerce</groupId>
                 <artifactId>application-module</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            
+            <!-- Platform Modules (from platform-bom) -->
+            <dependency>
+                <groupId>org.acme.platform</groupId>
+                <artifactId>scheduler-module</artifactId>
+                <version>${scheduler-module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.platform</groupId>
+                <artifactId>cache-module</artifactId>
+                <version>${cache-module.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

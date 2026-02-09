@@ -26,6 +26,12 @@
         <shared-kernel.version>1.0.0</shared-kernel.version>
         <inventory-domain-module.version>1.0.0-SNAPSHOT</inventory-domain-module.version>
         <inventory-infrastructure-module.version>1.0.0-SNAPSHOT</inventory-infrastructure-module.version>
+        <events-module.version>1.0.0-SNAPSHOT</events-module.version>
+        <scheduler-module.version>1.0.0-SNAPSHOT</scheduler-module.version>
+        <cache-module.version>1.0.0-SNAPSHOT</cache-module.version>
+        
+        <!-- Library Versions -->
+        <caffeine.version>3.1.8</caffeine.version>
         
         <!-- Test Library Versions -->
         <archunit.version>1.4.1</archunit.version>
@@ -131,6 +137,35 @@
                  <artifactId>inventory-infrastructure-module</artifactId>
                  <version>${inventory-infrastructure-module.version}</version>
              </dependency>
+            <dependency>
+                <groupId>org.acme.commerce</groupId>
+                <artifactId>events-module</artifactId>
+                <version>${events-module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.platform</groupId>
+                <artifactId>scheduler-module</artifactId>
+                <version>${scheduler-module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.acme.platform</groupId>
+                <artifactId>cache-module</artifactId>
+                <version>${cache-module.version}</version>
+            </dependency>
+            
+            <!-- ==================== -->
+            <!-- 6. Messaging (Kafka) -->
+            <!-- ==================== -->
+            <!-- Versions managed by Quarkus BOM -->
+            
+            <!-- ==================== -->
+            <!-- 7. Cache (Caffeine) -->
+            <!-- ==================== -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

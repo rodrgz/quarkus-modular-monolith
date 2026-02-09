@@ -75,14 +75,42 @@
             <artifactId>quarkus-rest-client</artifactId>
         </dependency>
         
-        <!-- ==================== -->
         <!-- OpenTelemetry (Unified Observability) -->
-        <!-- ==================== -->
         <!-- Traces: Distributed context propagation -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-opentelemetry</artifactId>
-        </dependency>      
+        </dependency>
+        
+        <!-- ==================== -->
+        <!-- Kafka Messaging -->
+        <!-- ==================== -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-messaging-kafka</artifactId>
+        </dependency>
+        
+        <!-- Events Module (Domain Events) -->
+        <dependency>
+            <groupId>org.acme.commerce</groupId>
+            <artifactId>events-module</artifactId>
+        </dependency>
+        
+        <!-- ==================== -->
+        <!-- Distributed Scheduler -->
+        <!-- ==================== -->
+        <dependency>
+            <groupId>org.acme.platform</groupId>
+            <artifactId>scheduler-module</artifactId>
+        </dependency>
+        
+        <!-- ==================== -->
+        <!-- Redis (for Cache and Scheduler) -->
+        <!-- ==================== -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-redis-client</artifactId>
+        </dependency>
 
         <!-- Tests -->
         <dependency>
